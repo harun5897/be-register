@@ -1,34 +1,19 @@
 const nodemailer = require('nodemailer')
-const getToken = require('../email/refreshToken')
+const Transport = require("nodemailer-sendinblue-transport")
 
-// Varibael Token
-const client_secret = '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'
-const client_id = '639193160059-891t6ahsc723bd7jqt2ks5m1k6nu90li.apps.googleusercontent.com'
-let token = ""
+const api_key = "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"
+const transporter = nodemailer.createTransport(
+  new Transport({ apiKey: api_key })
+)
 
 const sendEmail = async ( email ) => {
   const sendTo = String(email)
-  const getNewToken = await getToken.refreshAccessToken()
-  token = String(getNewToken)
-  if(token) {
-    console.log(token)
-    const transport = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        type: "OAuth2",
-        user: "harunstudio97@gmail.com",
-        clientId: client_id,
-        clientSecret: client_secret,
-        accessToken: token,
-      },
-    })
-    const send = await transport.sendMail({ 
-      from: 'harunstudio97@gmail.com',
-      to: sendTo,
-      subject: "Successful registration",
-      text: "I'm, so glad you registered for this app ✔",
-    })
-  }
+  const send = await transporter.sendMail({ 
+    from: 'example@mail.com',
+    to: sendTo,
+    subject: "Successful registration",
+    text: "I'm, so glad you registered for this app ✔",
+  })
 }
 
 module.exports = { sendEmail }

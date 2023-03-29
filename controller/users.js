@@ -29,7 +29,6 @@ const postRegisterUser = async (req, res) => {
           if (validator.validatePassword(password)) {
             dbConnect.query(userModels.registerUser(), [name, email, password], async (err, result, fields) => {
               if(err) throw err
-              // kirim email notifikasi
               mail.sendEmail(email)
               res.status(201).json({
                 message: 'success',
