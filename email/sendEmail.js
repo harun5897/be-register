@@ -11,6 +11,7 @@ const sendEmail = async ( email ) => {
   const getNewToken = await getToken.refreshAccessToken()
   token = String(getNewToken)
   if(token) {
+    console.log(token)
     const transport = nodemailer.createTransport({
       service: "gmail",
       auth: {
