@@ -1,9 +1,12 @@
 const nodemailer = require('nodemailer')
-const Transport = require("nodemailer-sendinblue-transport")
 
-const api_key = "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"
-const transporter = nodemailer.createTransport(
-  new Transport({ apiKey: api_key })
+const transporter = nodemailer.createTransport({
+  service: 'SendinBlue', // no need to set host or port etc.
+    auth: {
+        user: 'harungb025@gmail.com',
+        pass: 'xStkDpJZbM2Q6g8v'
+    }
+  }
 )
 
 const sendEmail = async ( email ) => {
